@@ -996,7 +996,7 @@ public class TelaTakeFoto extends javax.swing.JFrame {
                                     break;
                                 
                                 case 22:
-                                    msg = "Filtro Black/White ";
+                                    msg = "Filtro orderedDither ";
                                     msgOpcFiltro = msg;
                                     lblNumFiltro.setText(msg + jSliderFiltro.getValue());
                                     lblNumFiltroOpc.setText(jSliderFiltroOpc.getValue() + " " + msgOpcFiltro);
@@ -1058,7 +1058,7 @@ public class TelaTakeFoto extends javax.swing.JFrame {
                                 teste = Filtro.filter(teste, vl); //alterações neste ponto com image Buffered  
                             }else if (FLAG_FILTRO == 22) {
                                //buff = Filtro.negativo(buff); //alterações neste ponto com image Buffered
-                               int[][] var = new int [2][2];
+                               int[][] var = new int  [1] [1];
                                 teste = Filtro.orderedDither(teste, var); //alterações neste ponto com image Buffered  
                             }
                             //
