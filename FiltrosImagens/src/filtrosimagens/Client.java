@@ -6,10 +6,7 @@ package filtrosimagens;
  * and open the template in the editor.
  */
 
-import javax.swing.*;
 import java.net.*;
-import java.awt.image.*;
-import javax.imageio.*;
 import java.io.*;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
