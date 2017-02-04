@@ -491,10 +491,21 @@ public class TelaTakeFoto extends javax.swing.JFrame {
 
         cmdDelPicture.setEnabled(true);
 
-        FileFilter filter = new FileNameExtensionFilter("Arquivos Imagens: png, jpg e gif", "png", "jpg", "gif");
+// FileFilter filter = new FileNameExtensionFilter("Arquivos Imagens", "png", "jpg", "gif");
         JFileChooser jFileChooserFoto1 = new JFileChooser("C:\\Users\\Décio\\Documents\\__POO2016"); //colocar o path do projeto
         //jFileChooserFoto1.addChoosableFileFilter(new TextFilterOut());
-        jFileChooserFoto1.addChoosableFileFilter(filter);
+        //jFileChooserFoto1.addChoosableFileFilter(filter);
+
+        //Add a custom file filter and disable the default
+        //(Accept All) file filter.
+        jFileChooserFoto1.addChoosableFileFilter(new ImageFilter());
+        jFileChooserFoto1.setAcceptAllFileFilterUsed(false);//desabilita o default do JFileChooser tipo de arquivos.
+
+        //Add custom icons for file types.
+        jFileChooserFoto1.setFileView(new ImageFileView());
+
+        //Add the preview pane.
+        jFileChooserFoto1.setAccessory(new ImagePreview(jFileChooserFoto1));
         int returnVal = jFileChooserFoto1.showSaveDialog(this);
 
         if (returnVal == jFileChooserFoto1.APPROVE_OPTION) {
