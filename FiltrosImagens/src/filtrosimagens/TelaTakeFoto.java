@@ -5,7 +5,6 @@ package filtrosimagens;
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
@@ -17,6 +16,7 @@ import java.awt.image.WritableRaster;
 import java.io.File;
 import java.io.IOException;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.Hashtable;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -75,6 +75,7 @@ public class TelaTakeFoto extends javax.swing.JFrame {
         initComponents();
 
         Hashtable m_labels = new Hashtable(3);
+        //HashMap m_labels = new HashMap(3);
         for (int k = 0; k < 4; k++) {
             m_labels.put(k, new JLabel(
                     k + "", JLabel.CENTER));
@@ -512,13 +513,12 @@ public class TelaTakeFoto extends javax.swing.JFrame {
             File file = jFileChooserFoto1.getSelectedFile();
             String arquivoNome = file.getAbsolutePath();
             extensao = arquivoNome.substring((arquivoNome.lastIndexOf(".")), arquivoNome.length());
-           
-            
+
             try {
-                if (FLAG_FILTRO == 18){
-                   Thread.sleep(DELAY_CAM * 8); 
+                if (FLAG_FILTRO == 18) {
+                    Thread.sleep(DELAY_CAM * 8);
                 }
-                
+
                 //Highgui.imwrite(file.getPath(), frame); //grava arquivo imagem mas não tem permissão em c
                 if (extensao.equalsIgnoreCase(".jpg")) {
                     ImageIO.write(teste, "jpg", file);
@@ -532,8 +532,7 @@ public class TelaTakeFoto extends javax.swing.JFrame {
                 } else {
                     System.out.println("Erro formato de arquivo" + extensao);
                 }
-                
-                
+
             } catch (IOException | InterruptedException ex) {
                 Logger.getLogger(TelaTakeFoto.class.getName()).log(Level.SEVERE, null, ex);
                 System.out.println("O seguinte erro ocorreu: " + ex);
@@ -646,7 +645,12 @@ public class TelaTakeFoto extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(TelaTakeFoto.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
-        System.loadLibrary(Core.NATIVE_LIBRARY_NAME); // load native library of opencv
+        //System.loadLibrary("opencv_java2413.dll"); 
+        //System.loadLibrary(Core.NATIVE_LIBRARY_NAME); // load native library of opencv
+        
+        // Load the native library.
+    System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
+        
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
@@ -987,7 +991,7 @@ public class TelaTakeFoto extends javax.swing.JFrame {
                                     FLAG_FILTRO = 19; //FILTRO JAVA PURO
                                     System.out.println("Esta é a:" + filtroOpc);
                                     break;
-                                    
+
                                 case 20:
                                     msg = "Filtro Rotation ";
                                     msgOpcFiltro = msg;
@@ -996,7 +1000,7 @@ public class TelaTakeFoto extends javax.swing.JFrame {
                                     FLAG_FILTRO = 20; //FILTRO JAVA PURO
                                     System.out.println("Esta é a:" + filtroOpc);
                                     break;
-                                
+
                                 case 21:
                                     msg = "Filtro Cores Básicas ";
                                     msgOpcFiltro = msg;
@@ -1005,7 +1009,7 @@ public class TelaTakeFoto extends javax.swing.JFrame {
                                     FLAG_FILTRO = 21; //FILTRO JAVA PURO
                                     System.out.println("Esta é a:" + filtroOpc);
                                     break;
-                                
+
                                 case 22:
                                     msg = "Filtro orderedDither ";
                                     msgOpcFiltro = msg;
@@ -1014,7 +1018,7 @@ public class TelaTakeFoto extends javax.swing.JFrame {
                                     FLAG_FILTRO = 22; //FILTRO JAVA PURO
                                     System.out.println("Esta é a:" + filtroOpc);
                                     break;
-                                        
+
                                 default:
                                     msg = msg + "Sem Filtro ";
                                     lblNumFiltro.setText(msg + jSliderFiltro.getValue());
@@ -1058,18 +1062,18 @@ public class TelaTakeFoto extends javax.swing.JFrame {
                             } else if (FLAG_FILTRO == 18) {
                                 //buff = Filtro.negativo(buff); //alterações neste ponto com image Buffered
                                 teste = Filtro.screenShot(teste); //alterações neste ponto com image Buffered  
-                            }else if (FLAG_FILTRO == 19) {
+                            } else if (FLAG_FILTRO == 19) {
                                 //buff = Filtro.negativo(buff); //alterações neste ponto com image Buffered
                                 teste = Filtro.mainSegmentoCor(teste, vl); //alterações neste ponto com image Buffered  
-                            }else if (FLAG_FILTRO == 20) {
+                            } else if (FLAG_FILTRO == 20) {
                                 //buff = Filtro.negativo(buff); //alterações neste ponto com image Buffered
-                                teste = Filtro.rotate1(teste, vl*2.5); //alterações neste ponto com image Buffered  
-                            }else if (FLAG_FILTRO == 21) {
+                                teste = Filtro.rotate1(teste, vl * 2.5); //alterações neste ponto com image Buffered  
+                            } else if (FLAG_FILTRO == 21) {
                                 //buff = Filtro.negativo(buff); //alterações neste ponto com image Buffered
                                 teste = Filtro.filter(teste, vl); //alterações neste ponto com image Buffered  
-                            }else if (FLAG_FILTRO == 22) {
-                               //buff = Filtro.negativo(buff); //alterações neste ponto com image Buffered
-                               int[][] var = new int  [1] [1];
+                            } else if (FLAG_FILTRO == 22) {
+                                //buff = Filtro.negativo(buff); //alterações neste ponto com image Buffered
+                                int[][] var = new int[1][1];
                                 teste = Filtro.orderedDither(teste, var); //alterações neste ponto com image Buffered  
                             }
                             //
